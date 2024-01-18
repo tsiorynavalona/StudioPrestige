@@ -1,0 +1,73 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Photographes{% endblock %}
+
+{% block top_bar %}
+    Les Photographes
+{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <a href="{{ path('admin_add_photograph') }}" class="btn btn-success">Ajouter</a>
+    </div>
+    <div class="row" style="margin-top:30px">
+        
+        {% for photograph in photographs %}
+            {# MODAL FOR DELETE #}
+            <div class="modal fade" id="exampleModal-{{ photograph.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">{{ photograph.name }}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Etes-vous sûr(e) de vouloir supprimer?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <a class="btn btn-primary" href="{{ path('admin_delete_photograph', {id:photograph.id}) }}">Confirmer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# end MODAL FOR DELETE #}
+            <div class="col-lg-3 mb-4">
+                <div class="row">
+                    <div class="col-md-12 admin-image-container">
+                        <img src="{{ asset('build/' ~ photograph.ImageProfile.url) }}" alt="wrapkit" class="img-fluid" />
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <div class="pt-2">
+                            <h5 class="mt-4 font-weight-medium mb-0">{{ photograph.name }}</h5>
+                    
+                            <p>{{ photograph.about|slice(0, 50) ~ (photograph.about|length > 50 ? '...' : '') }}</p>
+
+                            
+                        </div>
+                        <a href="{{ path('admin_edit_photograph', {id: photograph.id}) }}" class="btn btn-primary">Modifier</a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{  photograph.id }}">
+                            Effacer
+                        </button>
+                    </div>
+                
+                    {# <h4>{{ photograph.name }}</h4> #}
+                    {# {% for photo in photograph.photos  %} #}
+
+                    {# <img src="{{ asset('build/' ~ photograph.ImageProfile.url) }}" alt="{{ photograph.name}}" class="img-thumbnail"> #}
+                    {# {% endfor %} #}
+                    
+                </div>
+                
+            </div>
+
+
+            
+      
+        {% endfor %}
+    </div>
+
+    
+
+{% endblock %}

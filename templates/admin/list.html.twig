@@ -1,0 +1,134 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Les photos{% endblock %}
+
+
+
+
+    {% block stylesheets %}
+        {{ parent() }}
+        {{ encore_entry_link_tags('select2-css') }}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nanogallery2/3.0.5/css/nanogallery2.min.css" integrity="sha512-6sOT9zKSKq1CYgNMqtcY84tFPDnG1yX5mxwdGQiAVpAomVr2kUKJ//pFeU/KfaZDVCOru5iFOVswpT4RWWF2dQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+       
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('select2') }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/nanogallery2/3.0.5/jquery.nanogallery2.min.js" integrity="sha512-tvpLVnZrWnnNzV2921XEMx4xkFTUF8xg3s+Mi6cvC/R7A6X1FkpBUXPJFa3Xh5uD9BvOZ2tHeYq/5ZqrweW86Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      
+        
+    {% endblock %}
+
+    {% block top_bar %}
+        Les photos
+    {% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <a href="{{ path('admin_add_photos') }}" class="btn btn-success"><i class="fas fa-plus"></i> Ajouter</a>
+
+        </div>
+        <div class="col-md-8 mb-3">
+            {{ form_start(filterForm , {'attr': {'novalidate': 'novalidate'}}) }}
+            <div class="row justify-content-end">
+               
+                    <div class="col">
+                        {# <input type="text" class="form-control" placeholder="First name" aria-label="First name"> #}
+                        {{ form_row(filterForm.categories, {'label': false, 'attr': {'placeholder': 'Catégories'}}) }}
+                    </div>
+                    <div class="col">
+                        {# <input type="text" class="form-control" placeholder="Last name" aria-label="Last name"> #}
+                        {{ form_row(filterForm.photograph, {'label': false, 'attr': {'placeholder': 'Photographes'}}) }}
+                    </div>
+                    <div class="col">
+                        {# <input type="text" class="form-control" placeholder="Last name" aria-label="Last name"> #}
+                        {{ form_row(filterForm.save, { 'label': '<i class="fas fa-search"></i> Filtrer', 'label_html': true }) }}
+                    </div>
+                    
+           
+            </div>
+                 {{ form_end(filterForm) }}
+
+        </div>
+        
+    </div>
+    {# <div class="row"> #}
+    <div class="row">
+        {% for photo in photos %}
+
+             {# MODAL FOR DELETE #}
+             <div class="modal fade" id="exampleModal-{{ photo.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">{{ photo.title }}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Etes-vous sûr(e) de vouloir supprimer?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-window-close"></i></button>
+                            <a class="btn btn-primary" href="{{ path('admin_delete_photos', {id:photo.id}) }}"><i class="fas fa-check"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# end MODAL FOR DELETE #}
+
+            <div class="col-md-3">
+                <div class="my_nanogallery2" data-nanogallery2>
+                
+                    {# <h1>{{ photo.title }}</h1> #}
+                  
+                        <a href="{{ asset('build/' ~ photo.url) }}" data-ngthumb="{{ asset('build/' ~ photo.url) }}">{{ photo.title }}</a>
+                 
+               
+                </div> 
+                <div>
+                    <a href="{{ path('admin_edit_photos', { id : photo.id }) }}" class="btn btn-primary" ><i class="far fa-edit"></i> Modifier</a>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{  photo.id }}"><i class="fas fa-trash-alt"></i> Supprimer</button>
+                </div>
+    
+            </div>
+
+           
+            
+            
+         {% endfor %}
+        
+        
+    </div>
+    <div class="row paginate">
+        <div class="container">
+            {{ knp_pagination_render(photos, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+        </div>
+        
+    </div>
+
+    {# <div class="navigation"> #}
+       
+
+    {# </div> #}
+
+    
+    
+        
+    {# </div> #}
+
+    <script>
+       
+        $('#filter_photos_categories').select2();
+        // });
+        $(".my_nanogallery2").nanogallery2({
+          thumbnailHeight:  200,
+        thumbnailWidth:   350
+        });
+    
+
+    </script>
+    
+
+{% endblock %}

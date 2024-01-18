@@ -1,0 +1,42 @@
+<?php
+
+namespace App\EventListener;
+
+use Twig\Environment;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+class ErrorListener implements EventSubscriberInterface
+{
+    private $twig;
+    private $response;
+
+    public function __construct(Environment $twig) {
+        $this->twig = $twig;
+        // $this->response = new Response();
+    }
+    public function onKernelException(ExceptionEvent $event)
+    {
+        $exception = $event->getThrowable();
+
+        if ($exception instanceof NotFoundHttpException) {
+         
+            $response = New Response($this->twig->render('errors/error404.html.twig'));
+            
+            // $response->setContent('Custom 404 page content');
+            $response->setStatusCode(404);
+
+            $event->setResponse($response);
+        }
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::EXCEPTION => 'onKernelException',
+        ];
+    }
+}

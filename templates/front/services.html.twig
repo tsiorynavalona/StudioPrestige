@@ -1,0 +1,102 @@
+{% extends 'front.html.twig' %}
+{% block title %}Studio Prestige - Services{% endblock %} 
+{% block hero %}
+  <div class="page-header d-flex align-items-center">
+      <div class="container position-relative">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-6 text-center">
+            <h2>Services</h2>
+            <p>
+              Nous proposons une gamme complète de services de photographie, notamment :
+            </p>
+
+            {# <a class="cta-btn" href="contact.html">Available for hire</a> #}
+
+          </div>
+        </div>
+      </div>
+    </div>
+            
+{% endblock %}
+ 
+
+{% block body %}
+  <section id="services" class="services">
+    <div class="container">
+
+      <div class="row gy-4">
+        {% for category in categories %}
+          <div class="col-xl-3 col-md-6 d-flex">
+            <div class="service-item position-relative" style="background-image: url('{{ 'build' ~ category.image }}') !important;">
+              {# <i class="bi bi-person-bounding-box"></i> #}
+              <h4><a href="{{ path('gallery', { id : category.id, label: (category.label | slug) }) }}" class="stretched-link">{{ category.label | upper}}</a></h4>
+              <p>{{ category.descriptions }}</p>
+            </div>
+          </div><!-- End Service Item -->
+          
+        {% endfor %}
+        
+       
+
+      </div>
+
+    </div>
+  </section><!-- End Services Section -->
+
+  <!-- ======= Pricing Section ======= -->
+  <section id="pricing" class="pricing">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>Tarifs</h2>
+        <p>Vérifiez nos prix adorables</p>
+      </div>
+
+      <div class="row gy-4 gx-lg-5">
+
+        <div class="col-lg-6">
+          <div class="pricing-item d-flex justify-content-between">
+            <h3>Photographie de portrait</h3>
+            <h4>$160.00</h4>
+          </div>
+        </div><!-- End Pricing Item -->
+
+        <div class="col-lg-6">
+          <div class="pricing-item d-flex justify-content-between">
+            <h3>Photographie de mode</h3>
+            <h4>$300.00</h4>
+          </div>
+        </div><!-- End Pricing Item -->
+
+        <div class="col-lg-6">
+          <div class="pricing-item d-flex justify-content-between">
+            <h3>Photographie sportive</h3>
+            <h4>$200.00</h4>
+          </div>
+        </div><!-- End Pricing Item -->
+
+        <div class="col-lg-6">
+          <div class="pricing-item d-flex justify-content-between">
+            <h3>Photographie De Nature Morte</h3>
+            <h4>$120.00</h4>
+          </div>
+        </div><!-- End Pricing Item -->
+
+        <div class="col-lg-6">
+          <div class="pricing-item d-flex justify-content-between">
+            <h3>Photographie de mariage</h3>
+            <h4>$500.00</h4>
+          </div>
+        </div><!-- End Pricing Item -->
+
+        <div class="col-lg-6">
+          <div class="pricing-item d-flex justify-content-between">
+            <h3>Photojournalisme</h3>
+            <h4>$200.00</h4>
+          </div>
+        </div><!-- End Pricing Item -->
+
+      </div>
+  </section><!-- End Pricing Section -->
+
+{% endblock %}

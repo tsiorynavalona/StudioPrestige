@@ -1,0 +1,138 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+    {% block top_bar %}
+        Categories
+    {% endblock %}
+
+{% block body %}
+    <div class="row">
+        <a href="{{ path('admin_add_category_photo') }}" class="btn btn-success">Ajouter</a>
+    </div>
+    <div class="row">
+        <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">ID</th>
+            <th scope="col">libellé</th>
+            <th scope="col"></th>
+           
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+                <!-- Modal -->
+            <div class="modal fade" id="exampleModal-{{ category.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{ category.label }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Voulez-vous vraiment supprimer cette catégorie?
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <a href="{{ path('admin_delete_category_photo', { id : category.id }) }}" class="btn btn-primary">Confirmer</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <tr>
+            <th scope="row">{{ category.id }}</th>
+            <td>{{ category.label }}</td>
+            <td>
+                <button class="btn btn-primary" action="select">Modifier Titre</button>&nbsp;&nbsp;
+                <a href="{{ path('admin_edit_category_photo', {id : category.id}) }}" class="btn btn-primary">Modifier Détails</a>&nbsp;&nbsp;
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ category.id }}">Effacer</button>
+
+            </td>
+        
+            </tr>
+            {% endfor %}
+           
+        </tbody>
+        </table>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+    // Handle click on buttons inside table rows
+        $('table').on('click', '.btn[action="select"]', function() {
+            // Find the closest 'tr' parent of the clicked button
+            let row = $(this).closest('tr');
+            let cellToChange = row.find('td:first');
+            text_value = cellToChange.text();
+
+                // Change the first cell; adjust as needed
+            cellToChange.html(`<input type="text" value="${text_value}" class="form-control">`); 
+            // Change the content as desired
+            $(this).attr('action','confirm').text('Confirmer');
+                // $(this).on('click', alert('ok'));
+           // Find and manipulate the 'td' element in the same row
+
+        });
+
+        $('table').on('click', '.btn[action="confirm"]', function() {
+            // Find the closest 'tr' parent of the clicked button
+            let row = $(this).closest('tr');
+            let cellToChange = row.find('td:first');
+            let value_input = row.find('input:first');
+            let category_id = row.find('th:first').text();
+            let clickedButton = $(this);
+            $(this).prop("disabled", true);
+            
+
+            if(value_input.val() !== '' && value_input.val() !== text_value) {
+                $(this).html('<div id="loading-spinner"></div>');
+                $.ajax({
+                    url: "{{ path('admin_edit_inline_category_photo') }}", // Replace with your API endpoint
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {
+                        id: category_id,
+                        label: value_input.val(),
+                    },
+                    success: function(response) {
+                        // Handle the successful response here
+                        // console.log('Response:', response);
+                        cellToChange.html(value_input.val()); 
+                        // $(this).prop("disabled", false);
+                        clickedButton.attr('action','select').text('Modifier').prop("disabled", false);
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors
+                        // console.error('Error:', error);
+                        value_input.val('il y a un erreur')
+                    }
+                })
+
+            } else {
+                cellToChange.html(text_value); 
+                        // $(this).prop("disabled", false);
+                clickedButton.attr('action','select').text('Modifier').prop("disabled", false);
+
+            }
+
+            
+            // console.log(value_input.val());
+            // let text_value = cellToChange.text();
+                // Change the first cell; adjust as needed
+        
+                // $(this).on('click', alert('ok'));
+           // Find and manipulate the 'td' element in the same row
+
+        });
+
+        var text_value;
+
+    });
+    </script>
+
+
+    
+{% endblock %}
+
+

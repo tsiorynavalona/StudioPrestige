@@ -1,0 +1,66 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Studio Prestige - A propos{% endblock %}
+
+{% block hero %}
+  <div class="page-header d-flex align-items-center">
+      <div class="container position-relative">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-6 text-center">
+            <h2>A propos</h2>
+            <p>Nous disposons d'un studio spacieux et bien équipé qui est idéal pour tous types de séances photo. Notre studio est situé dans un quartier central, ce qui le rend facilement accessible.</p>
+
+            <a class="cta-btn" href="{{ path('services') }}">Voir nos tarifs</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+            
+{% endblock %}
+ 
+
+{% block body %}
+  <section id="about" class="about">
+      <div class="container">
+
+        <div class="row gy-4 justify-content-center">
+          <div class="col-lg-4">
+            <img src="{{ asset('/build/images/photos/about-pro.jpg') }}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-5 content">
+            <h2>Nos photographes et notre studios</h2>
+            <p class="fst-italic py-3">
+              Voici l'information de notre studio
+            </p>
+            <div class="row">
+              <div class="col-lg-12">
+                <ul>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Lieux:</strong> <span>Manhattan</span></li>
+                  {# <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong> <span>www.example.com</span></li> #}
+                  <li><i class="bi bi-chevron-right"></i> <strong>Téléphone:</strong> <span>+123 456 7890</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Ville:</strong> <span>New York, USA</span></li>
+                </ul>
+              </div>
+              {# <div class="col-lg-6">
+                <ul>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>30</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>Master</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>PhEmailone:</strong> <span>email@example.com</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> <span>Available</span></li>
+                </ul>
+              </div> #}
+            </div>
+            <p class="py-3">
+              Nos photographes sont des professionnels expérimentés qui sont passionnés par leur art. Ils sont experts dans une variété de styles et de techniques, et ils sont toujours à la recherche de nouvelles façons de capturer la beauté du monde qui les entoure. Nous nous engageons à fournir à nos clients les meilleurs photographes possibles.
+            </p>
+            <p class="m-0">
+              Nous sélectionnons nos photographes en fonction de leur expérience, de leurs compétences et de leur passion pour la photographie.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+{% endblock %}

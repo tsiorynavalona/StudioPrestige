@@ -1,0 +1,19 @@
+{# <!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Error{% endblock %}</title>
+</head>
+<body>
+    <h1>{% block body %}{{ statusCode }} Error{% endblock %}</h1>
+
+    <p>{% block message %}{{ exception.message }}{% endblock %}</p>
+
+    {% block trace %}
+        {% if app.debug %}
+            <pre>{{ exception|nl2br|format_file() }}</pre>
+        {% endif %}
+    {% endblock %}
+</body>
+</html> #}
+
+{% extends 'form_div_layout.html.twig' %}

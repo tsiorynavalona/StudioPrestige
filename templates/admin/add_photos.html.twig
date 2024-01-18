@@ -1,0 +1,37 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Ajouter photos{% endblock %}
+
+
+
+{% block stylesheets %}
+
+    {{ parent() }}
+
+    {{ encore_entry_link_tags('select2-css') }}
+
+{% endblock %}
+{% block javascripts %}
+
+    {{ encore_entry_script_tags('app') }}
+
+    {{ encore_entry_script_tags('select2') }}
+
+{% endblock %}
+
+    
+
+{% block top_bar %}
+    Ajouter une photos
+{% endblock %}
+
+{% block body %}
+    {{ form(form_photos, { attr: {'novalidate': 'novalidate'}}) }}
+
+    <script>
+        $(document).ready(function() {
+    // Initialize Select2 on the desired select input(s)
+            $('select').select2();
+        });
+    </script>
+{% endblock %}

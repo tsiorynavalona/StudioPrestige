@@ -1,0 +1,41 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Studio Prestige - {{ title }}{% endblock %}  
+
+{% block body %}
+  
+    <div class="page-header d-flex align-items-center">
+      <div class="container position-relative">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-6 text-center">
+            <h2>{{ title }} ({{ photos | length }} images)</h2>
+            <p>{{ photos[0].categoriesPhotos[0].descriptions }}</p>
+
+            <a class="cta-btn" href="{{ path('services') }}">Voir nos tarifs</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  <section id="gallery" class="gallery">
+    <div class="container-fluid">
+
+      <div class="row gy-4 justify-content-center">
+        {% for photo in photos %}
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="gallery-item h-100">
+              <img src="{{ asset('build/' ~ photo.url) }}" class="img-fluid" alt="">
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="{{ asset('build/' ~ photo.url) }}" title="{{ photo.title }}" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                <a href="{{ path('gallery-single', { id : photo.id, photo_label : photo.title | slug('-') }) }}" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </section>
+{% endblock %}

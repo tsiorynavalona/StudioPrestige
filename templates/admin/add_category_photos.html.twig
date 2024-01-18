@@ -1,0 +1,11 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Ajouter categorie photos{% endblock %}
+
+{% block top_bar %}
+    Ajouter une categorie des photos
+{% endblock %}
+
+{% block body %}
+    {{ form(form_category, { attr: {'novalidate': 'novalidate'}}) }}
+{% endblock %}

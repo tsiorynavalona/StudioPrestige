@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>{% block title %}Studio Prestige{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_link_tags('front-css') }}
+            
+        {% endblock %}
+
+        {% block javascripts %}
+            
+            {{ encore_entry_script_tags('app') }}
+            
+        {% endblock %}
+    </head>
+    <body>
+        <header id="header" class="header d-flex align-items-center fixed-top">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+
+                <a href="{{ path('home') }}" class="logo d-flex align-items-center  me-auto me-lg-0">
+                    <!-- Uncomment the line below if you also wish to use an image logo -->
+                    <!-- <img src="assets/img/logo.png" alt=""> -->
+                    <i class="bi bi-camera"></i>
+                    <h1>StudioPrestige</h1>
+                </a>
+
+                <nav id="navbar" class="navbar">
+                    <ul>
+                    <li><a href="{{ path('home') }}" class="active">Accueil</a></li>
+                    <li><a href="{{ path('about') }}">A propos</a></li>
+                    <li class="dropdown"><a href="#"><span>Gallerie</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        <ul>
+                            {% for category in categoriesList %}
+                                <li><a href="{{ path('gallery' , { label: category.label|slug('-') , id : category.id }) }}">{{ category.label | upper }}</a></li>
+                                
+                            {% endfor %}
+                        {# <li><a href="gallery.html">Nature</a></li>
+                        <li><a href="gallery.html">People</a></li>
+                        <li><a href="gallery.html">Architecture</a></li>
+                        <li><a href="gallery.html">Animals</a></li>
+                        <li><a href="gallery.html">Sports</a></li>
+                        <li><a href="gallery.html">Travel</a></li> #}
+                        {# <li class="dropdown"><a href="#"><span>Sub Menu</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                            <ul>
+                            <li><a href="#">Sub Menu 1</a></li>
+                            <li><a href="#">Sub Menu 2</a></li>
+                            <li><a href="#">Sub Menu 3</a></li>
+                            </ul>
+                        </li> #}
+                        </ul>
+                    </li>
+                    <li><a href="{{ path('services') }}">Services</a></li>
+                    <li><a href="{{ path('contact') }}">Contact</a></li>
+                    </ul>
+                </nav><!-- .navbar -->
+
+                <div class="header-social-links">
+                    <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+                </div>
+                <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+                <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+            </div>
+        </header><!-- End Header -->
+
+         <!-- ======= Hero Section ======= -->
+         {% block hero %}
+            
+         {% endblock %}
+      
+        <main id="main" data-aos="fade" data-aos-delay="1500">
+            {% block body %}{% endblock %}
+        
+    
+        </main><!-- End #main -->
+
+
+        
+        <footer id="footer" class="footer">
+            <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong><span>StudioPrestige</span></strong>. Tous droit résérvées
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/ -->
+                {# Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> #}
+            </div>
+            </div>
+        </footer><!-- End Footer -->
+
+        <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+        <div id="preloader">
+            <div class="line"></div>
+        </div>
+
+        {% block bottom_javascripts %}
+           {# {{ encore_entry_script_tags('bs-bundle-front') }}
+            {{ encore_entry_script_tags('swiper-bundle') }}
+            {{ encore_entry_script_tags('glightbox') }}
+            {{ encore_entry_script_tags('aos') }}
+            {{ encore_entry_script_tags('validate') }}
+            
+
+            <!-- Template Main JS File --> #}
+            {{ encore_entry_script_tags('front-js') }}
+            
+            
+            
+        {% endblock %}
+
+  <!-- Vendor JS Files -->
+  
+    </body>
+</html>

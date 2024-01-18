@@ -1,0 +1,11 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Ajouter photos{% endblock %}
+
+{% block top_bar %}
+    Ajouter une photos
+{% endblock %}
+
+{% block body %}
+    {{ form(photograph_form,  { attr: {'novalidate': 'novalidate'}}) }}
+{% endblock %}
