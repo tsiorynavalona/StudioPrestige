@@ -82,8 +82,7 @@
             "@auto-scripts"
         ],
         "post-install-cmd": [
-            "cp -R .heroku/ ./",
-            "vendor/bin/heroku-php-apache2 public/"
+            "@auto-scripts"
         ]
     },
     "conflict": {

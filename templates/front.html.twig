@@ -33,9 +33,9 @@
 
                 <nav id="navbar" class="navbar">
                     <ul>
-                    <li><a href="{{ path('home') }}" class="active">Accueil</a></li>
-                    <li><a href="{{ path('about') }}">A propos</a></li>
-                    <li class="dropdown"><a href="#"><span>Gallerie</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <li><a href="{{ path('home') }}" {% if app.request.get('_route') == 'home' %} class="active"{% endif %}>Accueil</a></li>
+                    <li><a href="{{ path('about') }}" {% if app.request.get('_route') == 'about' %} class="active"{% endif %}>A propos</a></li>
+                    <li class="dropdown"><a href="#" {% if app.request.get('_route') == 'gallery' %} class="active"{% endif %}><span>Gallerie</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
                             {% for category in categoriesList %}
                                 <li><a href="{{ path('gallery' , { label: category.label|slug('-') , id : category.id }) }}">{{ category.label | upper }}</a></li>
@@ -44,8 +44,8 @@
                        
                         </ul>
                     </li>
-                    <li><a href="{{ path('services') }}">Services</a></li>
-                    <li><a href="{{ path('contact') }}">Contact</a></li>
+                    <li><a href="{{ path('services') }}" {% if app.request.get('_route') == 'services' %} class="active"{% endif %}>Services</a></li>
+                    <li><a href="{{ path('contact') }}" {% if app.request.get('_route') == 'contact' %} class="active"{% endif %}>Contact</a></li>
                     </ul>
                 </nav><!-- .navbar -->
 
