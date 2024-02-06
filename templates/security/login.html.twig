@@ -1,144 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Connectez-vous !!</title>
-
-    <!-- Custom fonts for this template-->
-    {{ encore_entry_link_tags('app') }}
-    {{ encore_entry_link_tags('admin-css') }}
-    {{ encore_entry_script_tags('app') }}
-
-</head>
-
-<body class="bg-gradient-primary">
-
-    <div class="container">
-
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
-
-            <div class="col-xl-10 col-lg-12 col-md-9">
-
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                    </div>
-                                    {% if error %}
-                                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                                    {% endif %}
-                                
-                                    {% if app.user %}
-                                        <div class="mb-3">
-                                            Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('admin_app_logout') }}">Deconnexion</a>
-                                        </div>
-                                    {% endif %}
-                                    <form class="user" method="post">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Entrer le nom de l'utilisateur..." value="{{ last_username }}" name="username" autocomplete="username" required autofocus>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" name="password" autocomplete="current-password" 
-                                                id="exampleInputPassword" placeholder="Mot de passe" required>
-                                        </div>
-                                        {# <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Souvenez de moi </label>
-                                            </div>
-                                        </div> #}
-                                        <input type="hidden" name="_csrf_token"
-                                             value="{{ csrf_token('authenticate') }}"
-                                        >
-                                        <button class="btn btn-primary btn-user btn-block" type="submit">
-                                            Se connecter
-                                        </button>
-                             
-                                        {# <hr> #}
-                                        {# <a href="index.html" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Login with Google
-                                        </a>
-                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                        </a> #}
-                                    </form>
-                                    <hr>
-                                    {# <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
-                                    </div> #}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Bootstrap core JavaScript-->
-    {# {{ encore_entry_script_tags('bs-bundle') }} #}
-    {# {{ encore_entry_script_tags('easy-jquery') }}
-    {{ encore_entry_script_tags('sb-admin') }} #}
-    {{ encore_entry_script_tags('admin-js') }}
-   
-
-</body>
-
-</html>
-
-
-
-
-{# 
-{% extends 'base.html.twig' %}
+{% extends 'front.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <section id="user-login" class="user-login">
+        <div class="container">
+            <form method="post" class="php-email-form">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('admin_app_logout') }}">Logout</a>
+                {# {% if app.flashes('success_registration') %} #}
+                    {% for message in app.flashes('success_registration') %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
+
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
+
+                    {% for message in app.flashes('success-password-change') %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
+
+                    {% for message in app.flashes('mail_changed_success') %}
+                        <div class="alert alert-success">{{ message }}</div>
+                        {% set last_username = ''  %} 
+                    {% endfor %}
+                    
+                {# {% endif %} #}
+
+    
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        Vous êtes connecté(e) en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% else %}
+                    <h1 class="h3 mb-3 font-weight-normal"><i class="bi bi-lock-fill"></i> Connectez-vous</h1>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                        
+                            <label for="inputEmail">Email <i class="bi bi-envelope"></i></label>
+                            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="inputPassword">Mot de passe <i class="bi bi-key"></i></label>
+                            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                        </div>
+                        <input type="hidden" name="_csrf_token"
+                            value="{{ csrf_token('authenticate') }}"
+                        >
+                    </div>
+
+                    <button class="btn btn-lg btn-primary" type="submit" style="margin-top: 20px;">
+                        <i class="bi bi-box-arrow-in-right"></i> Se connecter
+                    </button>
+                    <p><a href="{{ path('forgotten_password') }}">Mot de passe oublié</a></p>
+                    <p>Pas encore membre, inscrivez-vous <a href="{{ path('registration') }}">ici</a></p>
+
+                {% endif %}
+                
+            </form>
         </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUsername">Username</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-{% endblock %} #}
+        
+    </section>
+{% endblock %}

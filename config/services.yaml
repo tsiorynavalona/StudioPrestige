@@ -5,6 +5,9 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     photo_directory: '%kernel.project_dir%/assets/images/photos'
+    app.jwtsecret: '%env(JWT_SECRET)%'
+    app.base_url: '%env(APP_BASE_URL)%'
+    app.mail_sender: '%env(APP_MAIL_SENDER)%'
 
 
 
@@ -48,6 +51,7 @@ services:
     App\Service\EmailService:
         arguments:
             $mailer: '@Symfony\Component\Mailer\MailerInterface'
+       
        
 
    

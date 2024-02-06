@@ -45,15 +45,29 @@
                         </ul>
                     </li>
                     <li><a href="{{ path('services') }}" {% if app.request.get('_route') == 'services' %} class="active"{% endif %}>Services</a></li>
+                    <li><a href="{{ path('photographs') }}" {% if app.request.get('_route') == 'photographs' %} class="active"{% endif %}>Photographes</a></li>
                     <li><a href="{{ path('contact') }}" {% if app.request.get('_route') == 'contact' %} class="active"{% endif %}>Contact</a></li>
                     </ul>
                 </nav><!-- .navbar -->
 
                 <div class="header-social-links">
-                    <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                    <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+                    {% if app.user %}
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person"></i>&nbsp;{{ app.user.username | display_short_name }}</a>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: transparent;">
+                                <li><a class="dropdown-item dropdown-item-transparent" href="{{ path('user_profile')}}">Profil</a></li>
+                                <li><a class="dropdown-item dropdown-item-transparent" href="{{ path('booking')}}">Reservations</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item dropdown-item-transparent" href="{{ path('app_logout')}}">Déconnexion</a></li>
+                            </ul>
+                        </div>
+                       
+                    {% else %}
+                        <i class="bi bi-person"></i>&nbsp;<a href="{{ path('app_login') }}">Connexion</a>
+                    {% endif %}
+                    
                 </div>
                 <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
                 <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
@@ -76,16 +90,20 @@
         
         <footer id="footer" class="footer">
             <div class="container">
-            <div class="copyright">
-                &copy; Copyright <strong><span>StudioPrestige</span></strong>. Tous droit résérvées
-            </div>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/ -->
-                {# Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> #}
-            </div>
+                <div class="copyright">
+                    &copy; Copyright <strong><span>StudioPrestige</span></strong>. Tous droit résérvées
+                </div>
+                <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/ -->
+                    {# Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> #}
+                    <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+                </div>
             </div>
         </footer><!-- End Footer -->
 
@@ -109,6 +127,12 @@
             
             
         {% endblock %}
+        <script>
+            // $('document').ready(function () {
+            //     $('.dropdown-toggle').dropdown()
+            // })
+            
+        </script>
 
   <!-- Vendor JS Files -->
   

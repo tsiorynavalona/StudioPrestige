@@ -7,7 +7,7 @@
              <div class="col-lg-6 text-center">
                  <h2><span>StudioPrestige</span> est un studio de photographie professionnel</h2>
                  <p>Nous sommes spécialisés dans la photographie de portrait, de mode, de publicité et d'événementiel. Nous nous engageons à fournir à nos clients des images de haute qualité qui capturent leur beauté, leur personnalité et leur style</p>
-                 <a href="contact.html" class="btn-get-started">Contactez-nous</a>
+                 <a href="{{ path('contact') }}" class="btn-get-started">Contactez-nous</a>
              </div>
          </div>
      </div>
@@ -32,7 +32,7 @@
                 <img src="{{ asset('build/' ~ photo.url) }}" class="img-fluid" alt="">
                 <div class="gallery-links d-flex align-items-center justify-content-center">
                   <a href="{{ asset('build/' ~ photo.url) }}" title="{{ photo.title }}" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                  <a href="{{ path('gallery-single', {id : photo.id, photo_label : photo.title }) }}" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <a href="{{ path('gallery-single', {id : photo.id, photo_label : photo.title | slug }) }}" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div>

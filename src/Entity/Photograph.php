@@ -30,6 +30,9 @@ class Photograph
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $about = null;
 
+    #[ORM\ManyToOne(inversedBy: 'photograph')]
+    private ?Reservation $reservation = null;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -102,6 +105,18 @@ class Photograph
     public function setAbout(?string $about): static
     {
         $this->about = $about;
+
+        return $this;
+    }
+
+    public function getReservation(): ?Reservation
+    {
+        return $this->reservation;
+    }
+
+    public function setReservation(?Reservation $reservation): static
+    {
+        $this->reservation = $reservation;
 
         return $this;
     }

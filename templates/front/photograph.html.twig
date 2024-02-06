@@ -1,0 +1,56 @@
+{% extends 'front.html.twig' %}
+{% block title %}Studio Prestige - Nos Photographes{% endblock %} 
+{% block hero %}
+  <div class="page-header d-flex align-items-center">
+      <div class="container position-relative">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-6 text-center">
+            <h2>Nos photographes</h2>
+            <p>
+              Nous vous proposons des talentueux photographes!!
+            </p>
+            <p>
+              Ils n'attendent que vous
+            </p>
+
+            {# <a class="cta-btn" href="contact.html">Available for hire</a> #}
+
+          </div>
+        </div>
+      </div>
+    </div>
+            
+{% endblock %}
+ 
+
+{% block body %}
+  <section id="photographes" class="photographes">
+
+  <div class="container">
+    <div class="row">
+      
+        {% for photograph in photographs %}
+        <div class="col-lg-4">
+          <img class="thumbnail" src="{{ 'build/' ~ photograph.ImageProfile.url }}" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+
+          <h2>{{ photograph.name }}</h2>
+          <p>{{ photograph.about | slice(0, 50) ~ (photograph.about|length > 50 ? '...' : '') }}</p>
+          <p><a class="btn-get-started" href="#">Reserver »</a></p>
+        </div>
+          
+        {% endfor %}
+        
+      <!-- /.col-lg-4 -->
+      
+
+    </div>
+      
+  </div>
+
+    
+  </section><!-- End Services Section -->
+
+  <!-- ======= Pricing Section ======= -->
+  
+
+{% endblock %}

@@ -1129,7 +1129,7 @@ h6 {
   animation: animate-loading 1s linear infinite;
 }
 
-.contact .php-email-form input,
+.contact .php-email-form input, .user-login .php-email-form input,
 .contact .php-email-form textarea {
   border-radius: 4px;
   box-shadow: none;
@@ -1139,7 +1139,7 @@ h6 {
   color: #fff;
 }
 
-.contact .php-email-form input {
+.contact .php-email-form input, .user-login .php-email-form input {
   height: 44px;
 }
 
@@ -1147,7 +1147,7 @@ h6 {
   padding: 10px 12px;
 }
 
-.contact .php-email-form button[type=submit] {
+.contact .php-email-form button[type=submit], .user-login .php-email-form button[type=submit] {
   background: var(--color-primary);
   border: 0;
   padding: 10px 35px;
@@ -1156,7 +1156,7 @@ h6 {
   border-radius: 4px;
 }
 
-.contact .php-email-form button[type=submit]:hover {
+.contact .php-email-form button[type=submit]:hover , .user-login .php-email-form button[type=submit]:hover {
   background: rgba(39, 167, 118, 0.8);
 }
 

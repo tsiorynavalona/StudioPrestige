@@ -32,6 +32,15 @@ class CategoriesPhotos
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
+    
+    #[Assert\NotBlank(message:'Ce champ ne doit pas être vide.', groups: ['edit', 'add'])]
+    #[Assert\Type(type:'float', message:'Ce champ doit être une chiffre présentant un tarif (ex : 24, 25.5, ...)', groups: ['edit', 'add'])]
+    #[ORM\Column(type: 'float')]
+    private ?float $tarif = null;
+
+    #[ORM\ManyToOne(inversedBy: 'category')]
+    private ?Reservation $reservation = null;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -98,6 +107,30 @@ class CategoriesPhotos
     public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getTarif(): ?float
+    {
+        return $this->tarif;
+    }
+
+    public function setTarif(?string $tarif): static
+    {
+        $this->tarif = $tarif;
+
+        return $this;
+    }
+
+    public function getReservation(): ?Reservation
+    {
+        return $this->reservation;
+    }
+
+    public function setReservation(?Reservation $reservation): static
+    {
+        $this->reservation = $reservation;
 
         return $this;
     }

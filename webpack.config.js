@@ -37,6 +37,7 @@ Encore
     .addEntry('front-js', [
         './assets/front/vendor/swiper/swiper-bundle.min.js',
         './assets/front/vendor/glightbox/js/glightbox.min.js',
+        './assets/front/vendor/bootstrap/js/bootstrap.bundle.min.js',
         './assets/front/vendor/aos/aos.js',
         // './assets/front/vendor/php-email-form/validate.js',
         './assets/front/js/main.js',

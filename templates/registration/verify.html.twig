@@ -1,0 +1,29 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <section id="user-login" class="user-login">
+        <div class="container">
+            {% if message == 'email_send' %}
+                <div class="alert alert-success">
+                    Le lien de votre inscription a été envoyé dans votre mail
+                </div>
+            {% else if message == 'error_token' %}
+                <div class="alert alert-danger">
+                    Le token est invalide ou a expiré
+                </div>
+
+            {% else %}
+                <div class="alert alert-danger">
+                    Erreur inattendu ou token invalide
+                </div>
+
+            
+                
+            {% endif %}
+            
+        </div>
+        
+    </section>
+{% endblock %}

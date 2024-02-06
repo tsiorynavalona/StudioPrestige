@@ -106,11 +106,9 @@
                       {{ form_errors(form.message) }}
                     </div>
                   </div>
-                  <div class="my-3">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Votre message a été bien envoyé. Merci!</div>
-                  </div>
+                  {% for message in app.flashes('success')  %}
+                    <span class="text-success">{{ message }}</span>
+                  {% endfor %}
                   <div class="text-center">{{ form_widget(form.submit) }}</div>
                   
                 </div>

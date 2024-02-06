@@ -10,6 +10,7 @@ use App\Service\EmailService;
 use App\Service\FileUploader;
 use App\Entity\CategoriesPhotos;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -84,12 +85,13 @@ class FrontController extends AbstractController
 
         if($contactForm->isSubmitted() && $contactForm->isValid()) {
             $subject = $contactForm->get('sujet')->getData();
-            // $from = 'your_email@example.com';
+            // $to = 'your_email@example.com';
             $from = $contactForm->get('email')->getData();
             $textBody = $contactForm->get('message')->getData();
             // $htmlBody = '<p>This is the HTML message.</p>';
             try {
-                $emailService->sendEmail($subject, $from ,$textBody);
+                $emailService->sendEmail($subject, $from ,$textBody, compact('textBody'), 'contact');
+                $this->addFlash('success', 'Votre message a été bien envoyé');
             } catch (TransportExceptionInterface  $e) {
                 $logger->error('Email sending failed: ' . $e->getMessage());
             }
@@ -107,6 +109,26 @@ class FrontController extends AbstractController
     public function about(): Response
     {
         return $this->render('front/about.html.twig', []);
+    }
+
+    #[Route('/photographs', name: 'photographs')]
+    public function photograph(): Response
+    {
+        $photographs = $this->entity_manager->getRepository($this->photograph::class)->findAll();
+        return $this->render('front/photograph.html.twig', [
+            'photographs' => $photographs
+        ]);
+    }
+
+   
+
+    #[Route('/profile', name: 'user_profile')]
+    public function user_profile(): Response
+    {
+        $photographs = $this->entity_manager->getRepository($this->photograph::class)->findAll();
+        return $this->render('front/profile.html.twig', [
+            // 'photographs' => $photographs
+        ]);
     }
 
    

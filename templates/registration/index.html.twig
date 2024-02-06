@@ -1,0 +1,110 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <section id="user-login" class="user-login">
+        <div class="container">
+            {# <form method="post" class="php-email-form">
+
+                <h1 class="h3 mb-3 font-weight-normal"><i class="bi bi-lock-fill"></i>Inscrivez-vous</h1>
+
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                    
+                        <label for="inputEmail">Email <i class="bi bi-envelope"></i></label>
+                        <input type="email" value="" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="inputPassword">Mot de passe <i class="bi bi-key"></i></label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                    </div>
+                 
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                    
+                        <label for="inputEmail">Email <i class="bi bi-envelope"></i></label>
+                        <input type="email" value="" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="inputPassword">Mot de passe <i class="bi bi-key"></i></label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                    </div>
+                    
+                </div>
+
+                <button class="btn btn-lg btn-primary" type="submit" style="margin-top: 20px;">
+                    <i class="bi bi-box-arrow-in-right"></i> Se connecter
+                </button>
+            </form> #}
+            <h1 class="h3 mb-3 font-weight-normal"><i class="bi bi-card-checklist"></i> Inscrivez-vous</h1>
+            {{ form_start(form, {'attr': {'class': 'php-email-form', 'novalidate': 'novalidate'}}) }}
+            <div class="row">
+                <div class="col-md-4 form-group mt-3">
+                    <label for="email">Email <i class="bi bi-envelope"></i></label>
+                    {{ form_widget(form.email) }}
+                    <div class="form-error">
+                    {{ form_errors(form.email) }}
+                    </div>
+                </div>
+                <div class="col-md-4 form-group mt-3">
+                    <label for="username">Nom <i class="bi bi-person-badge-fill"></i></label>
+                    {{ form_widget(form.username) }}
+                    <div class="form-error">
+                    {{ form_errors(form.username) }}
+                    </div>
+                </div>
+                <div class="col-md-4 form-group mt-3">
+                    <label for="address">Adresse <i class="bi bi-telephone-fill"></i></label>
+                    {{ form_widget(form.address) }}
+                    <div class="form-error">
+                    {{ form_errors(form.address) }}
+                    </div>
+                </div>
+            <div class="row">
+                <div class="col-md-4 form-group mt-3">
+                    <label for="phone">Téléphone <i class="bi bi-telephone-fill"></i></label>
+                    {{ form_widget(form.phone) }}
+                    <div class="form-error">
+                    {{ form_errors(form.phone) }}
+                    </div>
+                </div>
+                <div class="col-md-4 form-group mt-3">
+                    <label for="phone2">Téléphone 2 <i class="bi bi-telephone-fill"></i></label>
+                    {{ form_widget(form.phone2) }}
+                    <div class="form-error">
+                    {{ form_errors(form.phone2) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group mt-3 col-md-6">
+                    <label for="password">Mot de passe <i class="bi bi-key-fill"></i></label>
+                    {{ form_widget(form.password) }}
+                    <div class="form-error">
+                    {{ form_errors(form.password) }}
+                    </div>
+                </div>
+                <div class="form-group mt-3 col-md-6">
+                    <label for="password_confirm">Confimer mot de passe <i class="bi bi-key-fill"></i></label>
+                    {{ form_widget(form.password_confirm) }}
+                    <div class="form-error">
+                    {{ form_errors(form.password_confirm) }}
+                    </div>
+                </div>
+            </div>
+                
+                {# <div class="my-3">
+                    <div class="loading">Loading</div>
+                    <div class="error-message"></div>
+                
+                </div> #}
+                <div class="text-center" style="margin-top: 20px;">{{ form_widget(form.submit) }}</div>
+                
+                </div>
+            {{ form_end(form) }}
+            </div>
+        
+    </section>
+{% endblock %}

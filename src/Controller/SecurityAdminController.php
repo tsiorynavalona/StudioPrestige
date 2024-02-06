@@ -10,8 +10,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityAdminController extends AbstractController
 {
-    #[Route(path: 'admin/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    #[Route(path: 'admin/login', name: 'app_admin_login')]
+    public function admin_login(AuthenticationUtils $authenticationUtils): Response
     {
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
@@ -22,7 +22,7 @@ class SecurityAdminController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/admin-login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     #[Route(path: 'admin/logout', name: 'admin_app_logout')]

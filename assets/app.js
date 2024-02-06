@@ -36,8 +36,11 @@ const $ = require('jquery');
 global.$ = global.jQuery = $;
 
 import 'bootstrap';
-import 'select2';
 
+import 'select2';
+// require('bootstrap/dist/js/bootstrap.bundle');
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 // import 'nanogallery2';
 // import './admin/js/sb-admin-2.min.js';
 

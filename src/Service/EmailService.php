@@ -4,34 +4,48 @@ namespace App\Service;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class EmailService
 {
     private $mailer;
     private $logger;
-    // private $flashBag;
+    private $parameterBag;
 
-    public function __construct(MailerInterface $mailer, LoggerInterface $logger)
+    public function __construct(MailerInterface $mailer, LoggerInterface $logger, ParameterBagInterface $parameterBag)
     {
         $this->mailer = $mailer;
         $this->logger = $logger;
-        // $this->flashBag = $flashBag;
+        $this->parameterBag = $parameterBag;
     }
 
-    public function sendEmail(string $subject, string $from, string $textBody): void
+    public function sendEmail(string $subject, string $to ,string $textBody, array $context=[], string $template = 'default'): void
     {
-        $email = (new Email())
+        // dd($template);
+        $from = $this->parameterBag->get('app.mail_sender');
+
+        if($template == 'contact') {
+            $temp = $to;
+            $to = $from;
+            $from = $temp;
+            //permutation des envoyeurs et destinataires
+        }
+
+        $email = (new TemplatedEmail())
             ->subject($subject)
-            // ->from($from)
+            ->to($to)
             ->from($from)
-            ->text($textBody);
+            ->text($textBody)
             // ->html($htmlBody);
+            ->context($context)
+            ->htmlTemplate("emails/$template.html.twig");
 
             // try {
-            $this->mailer->send($email);
+        $this->mailer->send($email);
             // } catch (TransportExceptionInterface $e) {
             //     $this->logger->error('Error sending email: ' . $e->getMessage());
 
